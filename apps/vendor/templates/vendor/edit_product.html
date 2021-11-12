@@ -1,0 +1,62 @@
+{% extends 'core/base-new.html' %}
+{% load static %}
+{% block title %}Edit product | {% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'styles/edit_product.css' %}">
+    <!-- Fontawesome icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+  </head>
+  <body>
+    
+    <h1 class="heading" style="font-size: xx-large; font-weight: bold;">Edit Product</h1>
+    <div class = "product-form">
+          <form class="product" method="post"  action="{% url 'edit_product'  pk=form.instance.pk %}" enctype="multipart/form-data">
+            
+            {% csrf_token %}
+            <div style="display: none;">{{form.as_p}}</div>
+            <p style="color: #20dbc2; font-weight: bold;">Category: {{product.category}}</p>
+            <div>
+              <!-- <input type = "text" class = "form-control" placeholder="Category"> -->
+              <input type = "text" class = "form-control" placeholder="Product Name" name="title" value="{{product.title}}" required>
+              <input type = "number" class = "form-control" placeholder="Product Quantity" name="quantity" value="{{product.quantity}}"  required>
+            </div>
+            <div>
+              <!-- <input type = "file" accept="image" class = "form-control" placeholder="Product image"> -->
+              <input type="file" accept="image" class = "form-control" name="image" id="img" value="{{product.description}}" style="display:none;"/>
+              <label for="img" class = "form-control file-upload-text" >Image</label>
+              <input type = "number" class = "form-control" placeholder="Price" name="price" value="{{product.price}}"  required>
+
+              <input type = "number" class = "form-control" placeholder="Length" name="length" value="{{product.length}}" required>
+              <input type = "number" class = "form-control" placeholder="Breadth" name="breadth" value="{{product.breadth}}" required>
+              <input type = "number" class = "form-control" placeholder="Height" name="height" value="{{product.height}}" required>
+              <input type = "number" class = "form-control" placeholder="Weight (in kg)" name="weight" value="{{product.weight}}"  required>
+              
+            </div>
+            <textarea rows = "5" placeholder="Product Details" class = "form-control" name="description" required>{{product.description}}</textarea>
+   
+          <input type = "submit" class = "send-btn" value = "Edit Product"> 
+          <a href="{% url 'vendor_admin'  %}" class = "cancel-btn" name="done">Cancel</a>
+      
+          </form>
+           <!-- <a href="{% url 'delete_product'  pk=form.instance.pk %}"><button class = "delete-btn">Delete Product</button></a> -->
+          <div id="imgdiv">
+            <img src ="{% static 'img/edit-product.svg' %}"  alt = "">
+          </div>
+           <div>
+            <a href="{% url 'delete_product'  pk=form.instance.pk %}"><button class = "delete-btn">Delete Product</button></a>
+          </div> 
+        </div>
+
+        
+    </body>
+  </html>    
+  {% endblock %} 
